@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include<stdio.h> //need for check up
 #include<stdlib.h>
 
 struct node {
@@ -82,6 +82,7 @@ struct node* insertnode(struct node* root, int value) {
     if (bf < -1 && value > root->right->key)
         return leftrotate(root);
 
+    
     // LR Case
     if (bf > 1 && value > root->left->key) {
         root->left = leftrotate(root->left);
