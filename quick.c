@@ -8,60 +8,62 @@ void swap(int *a, int *b)
     *b = temp;
 }
 
-int median3(int *arr, int left, int right)
+int median3(int A[],int l,int r)
 {
-    int mid = (left + right) / 2;
-
-    // Order left, mid, right
-    if (arr[left] > arr[mid])
-        swap(&arr[left], &arr[mid]);
-    if (arr[left] > arr[right])
-        swap(&arr[left], &arr[right]);
-    if (arr[mid] > arr[right])
-        swap(&arr[mid], &arr[right]);
-
-    // Place pivot at right - 1
-    swap(&arr[mid], &arr[right - 1]);
-    return arr[right - 1];
+    int mid=(l+r)/2;
+    if(A[mid]>A[r])
+    {
+        swap(&A[mid],&A[r]);
+    }
+    if(A[l]>A[r])
+    {
+        swap(&A[l],&A[r]);
+    }
+    if(A[l]>A[mid])
+    {
+        swap(&A[mid],&A[l]);
+    }
+    swap(&A[mid],&A[r-1]);
+    return A[r-1];
 }
 
-int partition(int *arr, int left, int right)
+int partition(int A[],int l,int r)
 {
-    int pivot = median3(arr, left, right);
-    int i = left;
-    int j = right - 1;
+    int x=median3(A,l,r);
+    int i=l;
+    int j=r-1;
 
-    while (1)
+    while(1)
     {
-        while (arr[++i] < pivot);  // move i right
-        while (arr[--j] > pivot);  // move j left
-
-        if (i < j)
-            swap(&arr[i], &arr[j]);
-        else
+        while(A[++i]<x);
+        while(A[--j]>x);
+        if(i<j)
+        {
+            swap(&A[i],&A[j]);
+        }
+        else{
             break;
+        }
     }
-
-    // Place pivot in final place
-    swap(&arr[i], &arr[right - 1]);
+    swap(&A[r-1],&A[i]);
     return i;
 }
 
-void quicksort(int *arr, int left, int right)
+void quicksort(int A[],int l,int r)
 {
-    if (left + 2 <= right)   // ensure at least 3 elements
+    if (l + 2 <= r)
     {
-        int pivotIndex = partition(arr, left, right);
-        quicksort(arr, left, pivotIndex - 1);
-        quicksort(arr, pivotIndex + 1, right);
+        int m = partition(A, l, r);
+        quicksort(A, l, m - 1);
+        quicksort(A, m + 1, r);
     }
-    else
+    else if (l < r)
     {
-        // Simple manual sort for 1-2 elements
-        if (left < right && arr[left] > arr[right])
-            swap(&arr[left], &arr[right]);
+        if (A[l] > A[r])
+            swap(&A[l], &A[r]);
     }
 }
+
 
 int main()
 {

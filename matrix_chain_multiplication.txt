@@ -1,6 +1,0 @@
-consider two matrices a1 and a2 of sizes p0 X p1 and p1 X p2 respectively.
-1. matrix multiplication is not commutative
-2. matrix multiplication is associative
-3. to get multiplication of 2 matrices we need p0Xp1Xp2 no. of scalar multiplications
-
-consider 5 matrices A1, A2, A3, A4, A5 of sizes p0,p1p2,p

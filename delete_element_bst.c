@@ -43,35 +43,43 @@ void inorder(struct node* root)
     }
 }
 
-struct node* inorderpre(struct node* root)
-{
-    root=root->left;
-    while(root->right!=NULL)
-    {
-        root=root->right;
-    }
-    return root;
+struct node* minValueNode(struct node* node) {
+    struct node* current = node;
+    while (current && current->left != NULL)
+        current = current->left;
+    return current;
 }
 
-struct node* deletenode(struct node* root, int value)
-{
-    struct node* pre;
-    if(root==NULL)
-        return NULL;
-    if(root->left==NULL && root->right==NULL)
-    {
-        free(root);
-        return NULL;
+struct node* deleteNode(struct node* root, int key) {
+
+    if (root == NULL)
+        return root;
+
+    if (key < root->x)
+        root->left = deleteNode(root->left, key);
+
+    else if (key > root->x)
+        root->right = deleteNode(root->right, key);
+
+    else {
+        // Case 1 & 2: node with 0 or 1 child
+        if (root->left == NULL) {
+            struct node* temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL) {
+            struct node* temp = root->left;
+            free(root);
+            return temp;
+        }
+
+        // Case 3: node with 2 children
+        struct node* temp = minValueNode(root->right);
+        root->x = temp->x;
+        root->right = deleteNode(root->right, temp->data);
     }
-    if(value<root->x)
-        root->left=deletenode(root->left,value);
-    else if(value>root->x)
-        root->right=deletenode(root->right,value);
-    else{
-        pre=inorderpre(root);
-        root->x=pre->x;
-        root->left=deletenode(root->left,pre->x);
-    }
+
     return root;
 }
 
