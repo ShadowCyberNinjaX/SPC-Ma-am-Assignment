@@ -83,9 +83,22 @@ struct node* deletenode(struct node* root, int key) {
     return root;
 }
 
+struct node* searchBST(struct node* root, int key) 
+{
+    while (root != NULL) {
+        if (key == root->x)
+            return root;
+        else if (key < root->x)
+            root = root->left;
+        else
+            root = root->right;
+    }
+    return NULL;
+}
+
 int main() {
     struct node* root = NULL;
-    int n, value;
+    int n, value,key;
 
     printf("Enter number of nodes to insert: ");
     scanf("%d", &n);
@@ -99,7 +112,18 @@ int main() {
     printf("\nInorder Travarsal : ");
     inorder(root);
     printf("\n");
-    deletenode(root,5);
+
+    printf("Enter element to search: ");
+    scanf("%d", &key);
+    struct node* result = searchBST(root, key);
+    if (result != NULL)
+        printf("Element %d found in BST\n", key);
+    else
+        printf("Element %d NOT found in BST\n", key);
+
+    printf("Enter element to delete: ");
+    scanf("%d", &key);
+    root=deletenode(root,key);
     inorder(root);
     printf("\n");
     return 0;
