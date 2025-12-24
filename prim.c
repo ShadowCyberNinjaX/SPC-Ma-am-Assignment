@@ -48,14 +48,19 @@ void primMST(int graph[V][V]) {
 }
 
 int main() {
-    int graph[V][V] = {
-        {0, 2, 0, 6, 0},
-        {2, 0, 3, 8, 5},
-        {0, 3, 0, 0, 7},
-        {6, 8, 0, 0, 9},
-        {0, 5, 7, 9, 0}
-    };
+    int **a;
+    printf("enter the size of adjacent matrix:");
+    scanf("%d",&n);
 
-    primMST(graph);
+    a=malloc((n+1)*sizeof(int*));
+    for(i=1;i<=n;i++)
+    {
+        a[i]=malloc((n+1)*sizeof(int));
+        for(j=1;j<=n;j++)
+            scanf("%d",&a[i][j]);
+    }
+
+
+    primMST(a);
     return 0;
 }
